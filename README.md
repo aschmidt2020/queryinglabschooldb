@@ -1,1 +1,1 @@
-# queryinglabschooldb
+# querying-lab
