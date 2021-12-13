@@ -57,7 +57,7 @@ def problem_three(request):
 def problem_four(request):
     # Find all students who are taking the Programming class. 
     # Order by their grade. 
-    programming_students = StudentCourse.objects.filter(course_id=4).order_by('grade')
+    programming_students = StudentCourse.objects.filter(course__name='Programming').order_by('grade')
     
     data_visualization = [item for item in programming_students]
     
@@ -70,8 +70,8 @@ def problem_five(request):
     # Find all students getting an A in the Programming class. 
     # Order by last name.
 
-    programming_students = StudentCourse.objects.filter(course_id=4)
-    programming_students_with_A = programming_students.filter(grade='A').order_by('student_id__last_name')
+    programming_students = StudentCourse.objects.filter(course__name='Programming')
+    programming_students_with_A = programming_students.filter(grade='A').order_by('student__last_name')
     
     data_visualization = [item for item in programming_students_with_A]
     
@@ -83,9 +83,9 @@ def problem_five(request):
 def problem_six(request):
     # Find all students with a GPA less than 3.0 who are getting an A in Programming class.
     # Order by GPA.
-    programming_students = StudentCourse.objects.filter(course_id=4)
+    programming_students = StudentCourse.objects.filter(course__name='Programming')
     programming_students_with_A = programming_students.filter(grade='A')
-    programming_students_with_A_gpa_lessthan3 = programming_students_with_A.filter(student_id__gpa__lt=3).order_by('student_id__gpa')
+    programming_students_with_A_gpa_lessthan3 = programming_students_with_A.filter(student__gpa__lt=3).order_by('student__gpa')
     
     data_visualization = [item for item in programming_students_with_A_gpa_lessthan3]
     
