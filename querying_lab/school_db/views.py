@@ -20,8 +20,12 @@ def problem_one(request):
     # Find all students who have a GPA greater than 3.0. 
     # Order the data by highest GPAs first.
 
+    students_gpa_over_3 = Student.objects.filter(gpa__gte=3)
+    
+    data_visualization = [item for item in students_gpa_over_3]
+    
     context = {
-        'students': None
+        'students_gpa_over_3': students_gpa_over_3
     }
     return render(request, 'school/one.html', context)
 
