@@ -18,7 +18,7 @@
                 <li><a href="{% url 'lab:two' %}">Problem Two</a></li>
                 <li><a href="{% url 'lab:three' %}">Problem Three</a></li>
                 <li><a href="{% url 'lab:four' %}">Problem Four</a></li>
-                <li><a href="{% url 'lab:five' %}">Problem Five</a></li>
+                <li><a class='active' href="{% url 'lab:five' %}">Problem Five</a></li>
                 <li><a href="{% url 'lab:six' %}">Problem Six</a></li>
             </ul>
         </nav>
@@ -28,13 +28,13 @@
         <table class="center-table">
             <thead>
                 <tr>
-                    <th>Student Name</th>
+                    <th>First Name</th><th>Last Name</th><th>GPA</th>
                 </tr>
             </thead>
             <tbody>
                 {% for student in programming_students_with_A %}
                 <tr>
-                    <td>{{student.student}}</td>
+                    <td>{{student.student.first_name}}</td> <td>{{student.student.last_name}}</td>  <td>{{student.student.gpa}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
