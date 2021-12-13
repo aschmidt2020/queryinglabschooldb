@@ -70,8 +70,13 @@ def problem_five(request):
     # Find all students getting an A in the Programming class. 
     # Order by last name.
 
+    programming_students = StudentCourse.objects.filter(course_id=4)
+    programming_students_with_A = programming_students.filter(grade='A').order_by('student_id__last_name')
+    
+    data_visualization = [item for item in programming_students_with_A]
+    
     context = {
-        'student_courses': None
+        'programming_students_with_A': programming_students_with_A
     }
     return render(request, 'school/five.html', context)
 
