@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import Student, Instructor, Course, StudentCourse
 
-
 def index(request):
     students = Student.objects.all()
 
@@ -20,7 +19,7 @@ def problem_one(request):
     # Find all students who have a GPA greater than 3.0. 
     # Order the data by highest GPAs first.
 
-    students_gpa_over_3 = Student.objects.filter(gpa__gte=3)
+    students_gpa_over_3 = Student.objects.filter(gpa__gte=3).order_by('-gpa')
     
     data_visualization = [item for item in students_gpa_over_3]
     
@@ -32,9 +31,12 @@ def problem_one(request):
 def problem_two(request):
     # Find all instructors hired prior to 2010
     # Order by hire date
-
+    instructors_hired_before_2010 = Instructor.objects.filter(hire_date__lt='2010-01-01')
+    
+    data_visualization = [item for item in instructors_hired_before_2010]
+    
     context = {
-        'instructors': None
+        'instructors_hired_before_2010': instructors_hired_before_2010
     }
     return render(request, 'school/two.html', context)
 
