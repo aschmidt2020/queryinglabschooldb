@@ -31,7 +31,7 @@ def problem_one(request):
 def problem_two(request):
     # Find all instructors hired prior to 2010
     # Order by hire date
-    instructors_hired_before_2010 = Instructor.objects.filter(hire_date__lt='2010-01-01')
+    instructors_hired_before_2010 = Instructor.objects.filter(hire_date__lt='2010-01-01').order_by('hire_date')
     
     data_visualization = [item for item in instructors_hired_before_2010]
     
@@ -44,8 +44,13 @@ def problem_three(request):
     # Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
     # Order the data by student's first name alphabetically.
 
+    students_with_Aplus = StudentCourse.objects.filter(grade='A+')
+    students_with_Aplus_no_Cplus = students_with_Aplus.exclude(grade='C+').order_by('student_id__first_name')
+    
+    data_visualization = [item for item in students_with_Aplus_no_Cplus]
+    
     context = {
-        'student_courses': None
+        'students_with_Aplus_no_Cplus': students_with_Aplus_no_Cplus
     }
     return render(request, 'school/three.html', context)
 
