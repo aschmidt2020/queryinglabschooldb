@@ -108,35 +108,38 @@ def bonus_one(request):
     instructors_one_course = Instructor.objects.all().annotate(Count('course')).filter(course__count=1)
     course_names = []
     
-    #instructor_id = [item.id for item in instructors_one_course]
     for instructor in instructors_one_course:
         instructor_course = Course.objects.get(instructor_id=instructor.id)
         course_names.append(instructor_course)
-        
-        
+         
     data_visualization = [item for item in instructors_one_course]
     
     context = {
         'instructors_one_course': instructors_one_course,
-        'course_names': course_names
-
-    }
+        'course_names': course_names}
 
     return render(request, 'school/bonus_one.html', context)
 
 # BONUS TWO
 # Display all students along with the number of credits they are taking
 def bonus_two(request):
-    students_credits = StudentCourse.objects.all().aggregate(Sum('course__credits'))
-
-    data_visualization = [item for item in students_credits]
+    all_students = Student.objects.all()
+    student_hours = {}
+    
+    for student in all_students:
+        student_courses = StudentCourse.objects.filter(student_id=student.id)
+        credit_hours = student_courses.aggregate(Sum('course__credits'))
+        student_hours.__setitem__(student, credit_hours)
+        
+    data_visualization = [item for item in student_hours]
     
     context = {
-        'students_credits': students_credits
-
+        'all_students': all_students,
+        'student_hours': student_hours
     }
 
     return render(request, 'school/bonus_two.html', context)
+
 # BONUS THREE
 # Find all students who are getting an A in any course and average their GPAs. Display the number of students and their Average GPA
 
