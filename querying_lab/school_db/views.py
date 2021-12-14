@@ -44,13 +44,13 @@ def problem_three(request):
     # Find all students who have a A+ in any class and are NOT getting a C+ in any class. 
     # Order the data by student's first name alphabetically.
 
-    students_with_Aplus = StudentCourse.objects.filter(grade='A+')
-    students_with_Aplus_no_Cplus = students_with_Aplus.exclude(grade='C+').order_by('student_id__first_name')
+    students_with_c = Student.objects.filter(studentcourse__grade='C+')
+    students_with_Aplus = StudentCourse.objects.filter(grade='A+').exclude(student_id__in=students_with_c).order_by('student_id__first_name')
     
-    data_visualization = [item for item in students_with_Aplus_no_Cplus]
+    data_visualization = [item for item in students_with_Aplus]
     
     context = {
-        'students_with_Aplus_no_Cplus': students_with_Aplus_no_Cplus
+        'students_with_Aplus': students_with_Aplus
     }
     return render(request, 'school/three.html', context)
 
