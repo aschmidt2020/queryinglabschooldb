@@ -129,7 +129,9 @@ def bonus_two(request):
     for student in all_students:
         student_courses = StudentCourse.objects.filter(student_id=student.id)
         credit_hours = student_courses.aggregate(Sum('course__credits'))
-        student_hours.__setitem__(student, credit_hours)
+        student_hours.__setitem__(student, credit_hours['course__credits__sum'])
+        #credit_hours is a dictionary so passing in credit_hours['course__credits__sum'] gives value ONLY of key-value pair instead of both
+
         
     data_visualization = [item for item in student_hours]
     
