@@ -29,12 +29,12 @@
         <table class="center-table">
             <thead>
                 <tr>
-                    <th>Student Name</th><th>Total Credit Hours</th>
+                    <th>First Name</th> <th>Last Name</th><th>Total Credit Hours</th>
                 </tr>
             </thead>
             <tbody>
                 {% for key, value in student_hours.items %}
-                <tr> <td>{{key}}</td> <td>{{value}}</td></tr>
+                <tr> <td>{{key.first_name}}</td> <td>{{key.last_name}}</td> <td>{{value}}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
